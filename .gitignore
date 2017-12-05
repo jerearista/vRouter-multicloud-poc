@@ -1,0 +1,4 @@
+.terraform
+archive
+terraform.tfstate
+terraform.tfstate.backup
