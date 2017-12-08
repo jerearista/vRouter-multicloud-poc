@@ -1,6 +1,25 @@
-%ARISTA-STARTUP-CONFIG-START%
+%EOS-STARTUP-CONFIG-START%
+switchport default mode routed
+!
+transceiver qsfp default-mode 4x10G
 !
 hostname vRouter-112
+!
+spanning-tree mode mstp
+!
+aaa authentication policy on-success log
+aaa authentication policy on-failure log
+!
+no aaa root
+!
+username ec2-user nopassword
+username ec2-user sshkey ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCr3gRMpQOat1ozxSIqXX+e5x+7WNba6ZXXUhTJvKwTWlryqsCvqCXyV1L2B/s6u0DtNFi2NpH0YsjXZedKqSMQTont68eqnzrxz+KT+XkMkA1HfaRQ7M/qz5d3CwAGjGRziDmbDkSFyDuNZAiIuajwxltQ5qeZ7WCYVJUCAh0v/3v+cf9oPI4tQYKuORgm8EuG6r2/kIlfGrdgscm/Ww/XH4+gS9VKaBMKulZF1fiEWk5fXAykDijstCwQdF3pddvP44x3Uws7fuAA2q/vc8JDpZS344t+CRGbECZHCBxLcq8ZrOvOUgb511NwNme2p0vRbj6RTDgNyxdWQgRIk7R9 ${var.tag_name_prefix}key
+!
+interface Ethernet1
+   description To-Mgmt
+   mtu 8973
+   no switchport
+   ip address 10.115.112.37/28
 !
 interface Ethernet2
    description To-VPC-113
@@ -31,4 +50,4 @@ router bgp 65101
    neighbor 10.112.113.2 maximum-routes 12000
    redistribute connected
 !
-%ARISTA-STARTUP-CONFIG-END%
+%EOS-STARTUP-CONFIG-END%
