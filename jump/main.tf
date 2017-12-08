@@ -24,11 +24,11 @@ resource "aws_default_route_table" "default" {
   #  gateway_id = "${aws_internet_gateway.jj-LOB-IGW.id}"
   #}
   tags {
-    Name       = "${var.tag_name_prefix}VPC-Jump-default"
-    Department = "${var.tag_department}"
-    Author = "${var.tag_author}"
+    Name        = "${var.tag_name_prefix}VPC-Jump-default"
+    Department  = "${var.tag_department}"
+    Author      = "${var.tag_author}"
     Environment = "${var.tag_environment}"
-    Autostop = "${var.tag_autostop}"
+    Autostop    = "${var.tag_autostop}"
     Description = "${var.tag_description}"
   }
 }
@@ -104,8 +104,10 @@ resource "aws_default_security_group" "default" {
     to_port     = 0
     cidr_blocks = ["0.0.0.0/0"]
   }
+
   // End AWS Defaults
 }
+
 resource "aws_security_group" "external_access" {
   name        = "${var.tag_name_prefix}external-access"
   description = "SSH and ICMP from anywhere"

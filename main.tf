@@ -34,6 +34,7 @@ module "jump" {
   tag_description = "${var.tag_description}"
 }
 
+/*
 module "VPC-112" {
   source = "./vpc"
 
@@ -61,6 +62,7 @@ module "VPC-112" {
   net_prefix = "10.115"
   octet      = "112"
 }
+*/
 
 #module "VPC-115" {
 #  source = "./vpc"
@@ -96,8 +98,8 @@ module "Transit_VPC-113" {
   net_prefix = "10.115"
   octet      = "113"
 
-  vrouter_ami     = "${data.aws_ami.vRouter.id}"
-  aws_region      = "${var.aws_region}"
+  vrouter_ami = "${data.aws_ami.vRouter.id}"
+  aws_region  = "${var.aws_region}"
 
   keypair_name    = "${var.keypair_name}"
   tag_name_prefix = "${var.tag_name_prefix}"
@@ -108,7 +110,7 @@ module "Transit_VPC-113" {
   tag_description = "${var.tag_description}"
 
   #jump_ami        = "${data.aws_ami.amazon_linux.id}"
-  jump_ami = "ami-157b2102"
+  jump_ami                 = "ami-157b2102"
   jump_host_id             = "${module.jump.host_id}"
   jump_vpc_id              = "${module.jump.vpc_id}"
   jump_cidr_block          = "${module.jump.cidr_block}"
@@ -122,7 +124,7 @@ module "Transit_VPC-114" {
   net_prefix = "10.115"
   octet      = "114"
 
-  vrouter_ami     = "${data.aws_ami.vRouter.id}"
+  vrouter_ami = "${data.aws_ami.vRouter.id}"
 
   aws_region      = "${var.aws_region}"
   keypair_name    = "${var.keypair_name}"
@@ -133,7 +135,7 @@ module "Transit_VPC-114" {
   tag_autostop    = "${var.tag_autostop}"
   tag_description = "${var.tag_description}"
 
-  jump_ami = "ami-157b2102"
+  jump_ami                 = "ami-157b2102"
   jump_host_id             = "${module.jump.host_id}"
   jump_vpc_id              = "${module.jump.vpc_id}"
   jump_cidr_block          = "${module.jump.cidr_block}"
@@ -143,6 +145,7 @@ module "Transit_VPC-114" {
 /*
  * Setup VPC peering from 112 to 113
  */
+/*
 resource "aws_vpc_peering_connection" "112-113" {
   # Main VPC ID.
   vpc_id = "${module.VPC-112.vpc_id}"
@@ -190,8 +193,7 @@ resource "aws_route" "113-112" {
   # ID of VPC peering connection.
   vpc_peering_connection_id = "${aws_vpc_peering_connection.112-113.id}"
 }
-
-
+*/
 
 /*
  * Setup VPC peering from 114 to 113
@@ -215,11 +217,11 @@ resource "aws_vpc_peering_connection" "114-113" {
   auto_accept = true
 
   tags {
-    Name       = "${var.tag_name_prefix}114<>113"
-    Department = "${var.tag_department}"
-    Author = "${var.tag_author}"
+    Name        = "${var.tag_name_prefix}114<>113"
+    Department  = "${var.tag_department}"
+    Author      = "${var.tag_author}"
     Environment = "${var.tag_environment}"
-    Autostop = "${var.tag_autostop}"
+    Autostop    = "${var.tag_autostop}"
     Description = "${var.tag_description}"
   }
 }
@@ -246,10 +248,10 @@ resource "aws_route" "113-114" {
   vpc_peering_connection_id = "${aws_vpc_peering_connection.114-113.id}"
 }
 
-
 /*
  * Setup VPC peering from 114 to 115
  */
+
 
 /*
 resource "aws_vpc_peering_connection" "114-115" {
@@ -301,3 +303,4 @@ resource "aws_route" "115-114" {
   vpc_peering_connection_id = "${aws_vpc_peering_connection.114-115.id}"
 }
 */
+
