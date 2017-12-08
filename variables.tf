@@ -19,8 +19,43 @@ data "aws_ami" "vRouter" {
   #owners = ["679593333241"] # Arista (Marketplace)
 }
 
+data "aws_ami" "amazon_linux" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["Amazon-Linux-64bit-HVM*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["531700196402"] # Amazon
+}
+
 variable "aws_region" {
   default = "us-east-1"
+}
+
+variable "vrouter_ami" {
+  default = "ami-2fe8c64a"
+}
+
+variable "jump_ami" {
+  # AmazonLinux
+  default = "ami-157b2102"
+
+  # Windows_Server-2016-English-Nano-Base-2017.09.13
+  #default = "ami-5fd6f43a"
+
+  # ? Windows_Server-2016-English-Nano-Base-2017.09.13
+}
+
+variable "app_ami" {
+  # AmazonLinux
+  default = "ami-157b2102"
 }
 
 variable "aws_instance_type" {

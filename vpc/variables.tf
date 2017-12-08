@@ -7,6 +7,12 @@ variable "net_prefix" {
 variable "octet" {}
 variable "keypair_name" {}
 
+variable "aws_instance_type" {
+  default = "t2.micro"
+
+  #default = "m4.large"
+}
+
 variable "aws_region" {
   default = "us-east-1"
 }
@@ -48,3 +54,16 @@ variable "app_ami" {
   # AmazonLinux
   default = "ami-6b39150e"
 }
+
+variable "jump_host_id" {}
+variable "jump_vpc_id" {}
+variable "jump_cidr_block" {}
+variable "jump_main_route_table_id" {}
+
+/**
+ * Make AWS account ID available.
+ *
+ * This is added as an output so that other stacks can reference this. Usually
+ * required for VPC peering.
+ */
+data "aws_caller_identity" "current" {}
