@@ -253,12 +253,6 @@ resource "aws_instance" "vRouter" {
   }
 }
 
-#resource "aws_network_interface_attachment" "Eth3" {
-#  instance_id          = "${aws_instance.vRouter.id}"
-#  network_interface_id = "${aws_network_interface.vr-eth3.id}"
-#  device_index         = 2
-#}
-
 resource "aws_network_interface" "jump-eth0" {
   subnet_id   = "${aws_subnet.mgmt.id}"
   private_ips = ["${var.net_prefix}.${var.octet}.38"]
