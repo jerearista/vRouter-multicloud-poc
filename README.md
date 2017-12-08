@@ -44,3 +44,9 @@ To mark the vRouter in VPC 112 to be requilt, mark it as tainted, then run apply
 terraform taint -module=VPC-112 aws_instance.vRouter
 terraform apply -var-file="cvp.tfvars"
 ```
+
+## Archive files
+
+‘’’
+(cd .. && tar czvf vRouter-terraform-4-vpc-topo.tgz --exclude=’sandbox/archive’ --exclude=’terraform.*’ --exclude=’sandbox/.terraform*’ --exclude=’.git’ sandbox)
+````
