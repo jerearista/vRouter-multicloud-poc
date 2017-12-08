@@ -1,0 +1,34 @@
+%ARISTA-STARTUP-CONFIG-START%
+!
+hostname vRouter-115
+!
+interface Ethernet2
+   description To-VPC-114
+   mtu 8973
+   no switchport
+   ip address 10.115.115.6/28
+!
+interface Ethernet3
+   description APP-side
+   mtu 8973
+   no switchport
+   ip address 10.115.115.21/28
+!
+interface Tunnel1
+   description Tunnel_To_VPC-114
+   mtu 8973
+   ip address 10.114.115.2/30
+   tunnel source 10.115.115.6
+   tunnel destination 10.115.114.6
+   tunnel key 101
+!
+ip routing
+!
+ip route 10.115.114.0/28 10.115.115.1
+!
+router bgp 65102
+   neighbor 10.114.115.1 remote-as 65102
+   neighbor 10.114.115.1 maximum-routes 12000
+   redistribute connected
+!
+%ARISTA-STARTUP-CONFIG-END%
