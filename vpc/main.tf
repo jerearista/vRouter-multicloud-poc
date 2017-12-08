@@ -255,6 +255,37 @@ resource "aws_instance" "vRouter" {
   }
 }
 
+// ********************************************************
+// Example adding another interface to the vRouter 
+// after the environment is up.
+
+/*
+resource "aws_network_interface" "vr-eth4" {
+  subnet_id = "${aws_subnet.downstream.id}"
+
+  #security_groups = ["${aws_security_group.security_group.id}"]
+  source_dest_check = false
+  private_ips       = ["${var.net_prefix}.${var.octet}.24"]
+
+  tags {
+    Name        = "${var.tag_name_prefix}${var.octet}-vr-eth4"
+    Department  = "${var.tag_department}"
+    Author      = "${var.tag_author}"
+    Environment = "${var.tag_environment}"
+    Autostop    = "${var.tag_autostop}"
+    Description = "${var.tag_description}"
+  }
+}
+
+resource "aws_network_interface_attachment" "Eth4" {
+  instance_id          = "${aws_instance.vRouter.id}"
+  network_interface_id = "${aws_network_interface.vr-eth4.id}"
+  device_index         = 3
+}
+*/
+
+// ********************************************************
+
 resource "aws_network_interface" "jump-eth0" {
   subnet_id   = "${aws_subnet.mgmt.id}"
   private_ips = ["${var.net_prefix}.${var.octet}.38"]
