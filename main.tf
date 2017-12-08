@@ -25,6 +25,7 @@ module "jump" {
   keypair_name = "${var.keypair_name}"
 
   #jump_ami        = "${data.aws_ami.vRouter.id}"
+  jump_ami = "${data.aws_ami.amazon_linux.id}"
 
   tag_name_prefix = "${var.tag_name_prefix}"
   tag_department  = "${var.tag_department}"
@@ -38,6 +39,10 @@ module "jump" {
 module "VPC-112" {
   source = "./vpc"
 
+  name       = "VPC-112"
+  net_prefix = "10.115"
+  octet      = "112"
+
   keypair_name    = "${var.keypair_name}"
   aws_region      = "${var.aws_region}"
   tag_name_prefix = "${var.tag_name_prefix}"
@@ -48,48 +53,47 @@ module "VPC-112" {
   tag_description = "${var.tag_description}"
   vrouter_ami     = "${data.aws_ami.vRouter.id}"
 
-  app_ami = "ami-157b2102"
+  #app_ami = "ami-157b2102"
+  app_ami     = "${data.aws_ami.amazon_linux.id}"
 
-  jump_ami = "ami-157b2102"
+  #jump_ami = "ami-157b2102"
+  jump_ami     = "${data.aws_ami.amazon_linux.id}"
   jump_host_id             = "${module.jump.host_id}"
   jump_vpc_id              = "${module.jump.vpc_id}"
   jump_cidr_block          = "${module.jump.cidr_block}"
   jump_main_route_table_id = "${module.jump.main_route_table_id}"
 
   #app_ami         =
-
-  name       = "VPC-112"
-  net_prefix = "10.115"
-  octet      = "112"
 }
 */
 
-#module "VPC-115" {
-#  source = "./vpc"
-#
-#  keypair_name    = "${var.keypair_name}"
-#  aws_region      = "${var.aws_region}"
-#  tag_name_prefix = "${var.tag_name_prefix}"
-#  tag_department  = "${var.tag_department}"
-#  tag_author      = "${var.tag_author}"
-#  tag_environment = "${var.tag_environment}"
-#  tag_autostop    = "${var.tag_autostop}"
-#  tag_description = "${var.tag_description}"
-#  vrouter_ami     = "${data.aws_ami.vRouter.id}"
-#
-#  #jump_ami        =
-#  #app_ami         =
-#
-#  name       = "VPC-115"
-#  net_prefix = "10.115"
-#  octet      = "115"
-#
-#  jump_ami = "ami-157b2102"
-#  jump_host_id             = "${module.jump.host_id}"
-#  jump_vpc_id              = "${module.jump.vpc_id}"
-#  jump_cidr_block          = "${module.jump.cidr_block}"
-#  jump_main_route_table_id = "${module.jump.main_route_table_id}"
-#}
+module "VPC-115" {
+  source = "./vpc"
+
+  name       = "VPC-115"
+  net_prefix = "10.115"
+  octet      = "115"
+
+  keypair_name    = "${var.keypair_name}"
+  aws_region      = "${var.aws_region}"
+  tag_name_prefix = "${var.tag_name_prefix}"
+  tag_department  = "${var.tag_department}"
+  tag_author      = "${var.tag_author}"
+  tag_environment = "${var.tag_environment}"
+  tag_autostop    = "${var.tag_autostop}"
+  tag_description = "${var.tag_description}"
+  vrouter_ami     = "${data.aws_ami.vRouter.id}"
+
+  #app_ami = "ami-157b2102"
+  app_ami = "${data.aws_ami.amazon_linux.id}"
+
+  #jump_ami = "ami-157b2102"
+  jump_ami                 = "${data.aws_ami.amazon_linux.id}"
+  jump_host_id             = "${module.jump.host_id}"
+  jump_vpc_id              = "${module.jump.vpc_id}"
+  jump_cidr_block          = "${module.jump.cidr_block}"
+  jump_main_route_table_id = "${module.jump.main_route_table_id}"
+}
 
 module "Transit_VPC-113" {
   source = "./transit_vpc"
@@ -109,8 +113,8 @@ module "Transit_VPC-113" {
   tag_autostop    = "${var.tag_autostop}"
   tag_description = "${var.tag_description}"
 
-  #jump_ami        = "${data.aws_ami.amazon_linux.id}"
-  jump_ami                 = "ami-157b2102"
+  #jump_ami = "ami-157b2102"
+  jump_ami     = "${data.aws_ami.amazon_linux.id}"
   jump_host_id             = "${module.jump.host_id}"
   jump_vpc_id              = "${module.jump.vpc_id}"
   jump_cidr_block          = "${module.jump.cidr_block}"
@@ -135,7 +139,8 @@ module "Transit_VPC-114" {
   tag_autostop    = "${var.tag_autostop}"
   tag_description = "${var.tag_description}"
 
-  jump_ami                 = "ami-157b2102"
+  #jump_ami                 = "ami-157b2102"
+  jump_ami                 = "${data.aws_ami.amazon_linux.id}"
   jump_host_id             = "${module.jump.host_id}"
   jump_vpc_id              = "${module.jump.vpc_id}"
   jump_cidr_block          = "${module.jump.cidr_block}"
@@ -198,7 +203,7 @@ resource "aws_route" "113-112" {
 /*
  * Setup VPC peering from 114 to 113
  */
-
+/*
 resource "aws_vpc_peering_connection" "114-113" {
   # Main VPC ID.
   #vpc_id = "${aws_vpc.Jump_VPC.id}"
@@ -247,13 +252,12 @@ resource "aws_route" "113-114" {
   # ID of VPC peering connection.
   vpc_peering_connection_id = "${aws_vpc_peering_connection.114-113.id}"
 }
+*/
 
 /*
  * Setup VPC peering from 114 to 115
  */
 
-
-/*
 resource "aws_vpc_peering_connection" "114-115" {
   # Main VPC ID.
   #vpc_id = "${aws_vpc.Jump_VPC.id}"
@@ -272,11 +276,11 @@ resource "aws_vpc_peering_connection" "114-115" {
   auto_accept = true
 
   tags {
-    Name       = "${var.tag_name_prefix}114<>115"
-    Department = "${var.tag_department}"
-    Author = "${var.tag_author}"
+    Name        = "${var.tag_name_prefix}114<>115"
+    Department  = "${var.tag_department}"
+    Author      = "${var.tag_author}"
     Environment = "${var.tag_environment}"
-    Autostop = "${var.tag_autostop}"
+    Autostop    = "${var.tag_autostop}"
     Description = "${var.tag_description}"
   }
 }
@@ -302,5 +306,3 @@ resource "aws_route" "115-114" {
   # ID of VPC peering connection.
   vpc_peering_connection_id = "${aws_vpc_peering_connection.114-115.id}"
 }
-*/
-

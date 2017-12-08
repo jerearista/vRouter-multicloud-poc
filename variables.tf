@@ -32,7 +32,23 @@ data "aws_ami" "amazon_linux" {
     values = ["hvm"]
   }
 
-  owners = ["531700196402"] # Amazon
+  #owners = ["531700196402"] # Amazon
+}
+
+data "aws_ami" "windows" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["Windows_Server-2016-English-Core-Base*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  #owners = ["531700196402"] # amazon
 }
 
 variable "aws_region" {

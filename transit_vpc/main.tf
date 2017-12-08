@@ -123,26 +123,6 @@ resource "aws_route_table" "downstream" {
   }
 }
 
-# Get info for the automatically created main route table and make
-#   our new route table the new main
-#resource "aws_main_route_table_association" "jj-LOB-1-WEB-main" {
-#  vpc_id = "${aws_vpc.jere-vr-LOB-VPC-1.id}"
-#  route_table_id = "${aws_route_table.jj-LOB-1-WEB.id}"
-#}
-
-#resource "aws_route_table_association" "jj-LOB-VPC-1" {
-#  subnet_id = "${aws_subnet.jj-10_2_1_0.id}"
-#  route_table_id = "${aws_route_table.jj-LOB-1-WEB.id}"
-#}
-
-#resource "aws_route" "jj-LOB-internet_access" {
-#  route_table_id = "${aws_route_table.jj-LOB-1-WEB.id}"
-#  #route_table_id = "${aws_vpc.jere-vr-LOB-VPC-1.main_route_table_id}"
-#  destination_cidr_block = "0.0.0.0/0"
-#  gateway_id = "${aws_internet_gateway.jj-LOB-IGW.id}"
-#  depends_on = ["aws_route_table.jj-LOB-1-WEB"]
-#}
-
 resource "aws_default_route_table" "default" {
   default_route_table_id = "${aws_vpc.VPC.default_route_table_id}"
 
@@ -181,15 +161,6 @@ resource "aws_route_table_association" "downstream" {
 
   #route_table_id = "${aws_route_table.downstream.id}"
 }
-
-#resource "aws_route" "jj-LOB-internet_access" {
-#  route_table_id = "${aws_vpc.jere-vr-LOB-VPC-1.default_route_table_id}"
-#  #route_table_id = "${aws_route_table.jj-rt-LOB-1-WEB.id}"
-#  #route_table_id = "${aws_vpc.jere-vr-LOB-VPC-1.main_route_table_id}"
-#  destination_cidr_block = "0.0.0.0/0"
-#  gateway_id = "${aws_internet_gateway.jj-LOB-IGW.id}"
-#  #depends_on = ["aws_route_table.jj-rt-LOB-1-WEB"]
-#}
 
 resource "aws_network_interface" "vr-eth1" {
   subnet_id = "${aws_subnet.mgmt.id}"

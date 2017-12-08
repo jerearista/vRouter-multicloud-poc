@@ -129,26 +129,6 @@ resource "aws_route" "default_route" {
   network_interface_id   = "${aws_network_interface.vr-eth3.id}"
 }
 
-# Get info for the automatically created main route table and make
-#   our new route table the new main
-#resource "aws_main_route_table_association" "jj-LOB-1-WEB-main" {
-#  vpc_id = "${aws_vpc.jere-vr-LOB-VPC-1.id}"
-#  route_table_id = "${aws_route_table.jj-LOB-1-WEB.id}"
-#}
-
-#resource "aws_route_table_association" "jj-LOB-VPC-1" {
-#  subnet_id = "${aws_subnet.jj-10_2_1_0.id}"
-#  route_table_id = "${aws_route_table.jj-LOB-1-WEB.id}"
-#}
-
-#resource "aws_route" "jj-LOB-internet_access" {
-#  route_table_id = "${aws_route_table.jj-LOB-1-WEB.id}"
-#  #route_table_id = "${aws_vpc.jere-vr-LOB-VPC-1.main_route_table_id}"
-#  destination_cidr_block = "0.0.0.0/0"
-#  gateway_id = "${aws_internet_gateway.jj-LOB-IGW.id}"
-#  depends_on = ["aws_route_table.jj-LOB-1-WEB"]
-#}
-
 resource "aws_default_route_table" "default" {
   default_route_table_id = "${aws_vpc.VPC.default_route_table_id}"
 
@@ -185,15 +165,6 @@ resource "aws_route_table_association" "downstream" {
   subnet_id      = "${aws_subnet.downstream.id}"
   route_table_id = "${aws_route_table.downstream.id}"
 }
-
-#resource "aws_route" "jj-LOB-internet_access" {
-#  route_table_id = "${aws_vpc.jere-vr-LOB-VPC-1.default_route_table_id}"
-#  #route_table_id = "${aws_route_table.jj-rt-LOB-1-WEB.id}"
-#  #route_table_id = "${aws_vpc.jere-vr-LOB-VPC-1.main_route_table_id}"
-#  destination_cidr_block = "0.0.0.0/0"
-#  gateway_id = "${aws_internet_gateway.jj-LOB-IGW.id}"
-#  #depends_on = ["aws_route_table.jj-rt-LOB-1-WEB"]
-#}
 
 resource "aws_network_interface" "vr-eth1" {
   subnet_id = "${aws_subnet.mgmt.id}"
@@ -300,14 +271,14 @@ resource "aws_network_interface" "jump-eth0" {
   }
 }
 
-resource "aws_network_interface" "app-eth0" {
-  subnet_id   = "${aws_subnet.mgmt.id}"
-  private_ips = ["${var.net_prefix}.${var.octet}.39"]
+resource "aws_network_interface" "jump-eth1" {
+  subnet_id   = "${aws_subnet.downstream.id}"
+  private_ips = ["${var.net_prefix}.${var.octet}.22"]
 
   #security_groups = ["${aws_security_group.default.id}"]
 
   tags {
-    Name        = "${var.tag_name_prefix}${var.octet}-app_host-eth0"
+    Name        = "${var.tag_name_prefix}${var.octet}-jump_host-eth1"
     Department  = "${var.tag_department}"
     Author      = "${var.tag_author}"
     Environment = "${var.tag_environment}"
@@ -316,14 +287,14 @@ resource "aws_network_interface" "app-eth0" {
   }
 }
 
-resource "aws_network_interface" "app-eth1" {
+resource "aws_network_interface" "app-eth0" {
   subnet_id   = "${aws_subnet.downstream.id}"
-  private_ips = ["${var.net_prefix}.${var.octet}.22"]
+  private_ips = ["${var.net_prefix}.${var.octet}.23"]
 
   #security_groups = ["${aws_security_group.default.id}"]
 
   tags {
-    Name        = "${var.tag_name_prefix}${var.octet}-app_host-eth1"
+    Name        = "${var.tag_name_prefix}${var.octet}-app_host-eth0"
     Department  = "${var.tag_department}"
     Author      = "${var.tag_author}"
     Environment = "${var.tag_environment}"
@@ -341,6 +312,11 @@ resource "aws_instance" "jump" {
   network_interface {
     network_interface_id = "${aws_network_interface.jump-eth0.id}"
     device_index         = 0
+  }
+
+  network_interface {
+    network_interface_id = "${aws_network_interface.jump-eth1.id}"
+    device_index         = 1
   }
 
   key_name = "${var.keypair_name}"
@@ -373,11 +349,6 @@ resource "aws_instance" "app" {
   network_interface {
     network_interface_id = "${aws_network_interface.app-eth0.id}"
     device_index         = 0
-  }
-
-  network_interface {
-    network_interface_id = "${aws_network_interface.app-eth1.id}"
-    device_index         = 1
   }
 
   key_name = "${var.keypair_name}"
