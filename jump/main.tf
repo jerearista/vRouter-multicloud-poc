@@ -214,4 +214,9 @@ resource "aws_instance" "jump" {
   #    #"ip route replace default via 10.2.11.6"
   #  ]
   #}
+
+  # This is where we configure the instance with ansible-playbook
+  provisioner "local-exec" {
+    command = "sleep 120; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ec2-user --private-key /Users/jere/.ssh/id_rsa -i '${aws_instance.jump.public_ip},' ansible/jump.yml"
+  }
 }
