@@ -1,11 +1,10 @@
 terraform {
-  required_version = ">= 0.10"
+  required_version = ">= 0.9"
 }
 
 provider "aws" {
   version = "~> 0.1"
   region  = "${var.aws_region}"
-  profile = "prod"
 }
 
 provider "template" {
