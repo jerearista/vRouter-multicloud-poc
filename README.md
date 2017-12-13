@@ -7,7 +7,7 @@
 * Install AWS CLI
   * Configure credentials  
    `aws configure`
-* Download and install Terraform in your PATH
+* Download and install Terraform in your PATH: https://www.terraform.io/downloads.html
 * Change to the poc directory (here)  
   `cd vRouter-multicloud-poc`
 * Ensure the AWS and template provider plugins are installed  
