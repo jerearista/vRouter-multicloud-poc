@@ -1,7 +1,15 @@
+terraform {
+  required_version = ">= 0.10"
+}
+
 provider "aws" {
   version = "~> 0.1"
   region  = "${var.aws_region}"
   profile = "prod"
+}
+
+provider "template" {
+  version = "~> 1.0"
 }
 
 /**
@@ -54,10 +62,10 @@ module "VPC-112" {
   vrouter_ami     = "${data.aws_ami.vRouter.id}"
 
   #app_ami = "ami-157b2102"
-  app_ami     = "${data.aws_ami.amazon_linux.id}"
+  app_ami = "${data.aws_ami.amazon_linux.id}"
 
   #jump_ami = "ami-157b2102"
-  jump_ami     = "${data.aws_ami.amazon_linux.id}"
+  jump_ami                 = "${data.aws_ami.amazon_linux.id}"
   jump_host_id             = "${module.jump.host_id}"
   jump_vpc_id              = "${module.jump.vpc_id}"
   jump_cidr_block          = "${module.jump.cidr_block}"
@@ -95,6 +103,8 @@ module "VPC-115" {
   jump_main_route_table_id = "${module.jump.main_route_table_id}"
 }
 
+/*
+
 module "Transit_VPC-113" {
   source = "./transit_vpc"
 
@@ -114,7 +124,7 @@ module "Transit_VPC-113" {
   tag_description = "${var.tag_description}"
 
   #jump_ami = "ami-157b2102"
-  jump_ami     = "${data.aws_ami.amazon_linux.id}"
+  jump_ami                 = "${data.aws_ami.amazon_linux.id}"
   jump_host_id             = "${module.jump.host_id}"
   jump_vpc_id              = "${module.jump.vpc_id}"
   jump_cidr_block          = "${module.jump.cidr_block}"
@@ -146,6 +156,8 @@ module "Transit_VPC-114" {
   jump_cidr_block          = "${module.jump.cidr_block}"
   jump_main_route_table_id = "${module.jump.main_route_table_id}"
 }
+ */
+
 
 /*
  * Setup VPC peering from 112 to 113
@@ -200,6 +212,7 @@ resource "aws_route" "113-112" {
 }
 */
 
+
 /*
  * Setup VPC peering from 114 to 113
  */
@@ -253,11 +266,12 @@ resource "aws_route" "113-114" {
   vpc_peering_connection_id = "${aws_vpc_peering_connection.114-113.id}"
 }
 */
-
 /*
  * Setup VPC peering from 114 to 115
  */
 
+
+/*
 resource "aws_vpc_peering_connection" "114-115" {
   # Main VPC ID.
   #vpc_id = "${aws_vpc.Jump_VPC.id}"
@@ -306,3 +320,5 @@ resource "aws_route" "115-114" {
   # ID of VPC peering connection.
   vpc_peering_connection_id = "${aws_vpc_peering_connection.114-115.id}"
 }
+*/
+
