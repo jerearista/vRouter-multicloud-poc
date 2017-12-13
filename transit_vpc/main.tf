@@ -3,11 +3,11 @@ resource "aws_vpc" "VPC" {
 
   tags {
     Name        = "${var.tag_name_prefix}${var.name}"
-    Department  = "${var.tag_department}"
-    Author      = "${var.tag_author}"
-    Environment = "${var.tag_environment}"
-    Autostop    = "${var.tag_autostop}"
-    Description = "${var.tag_description}"
+    ##Department  = "${var.tag_department}"
+    #Author      = "${var.tag_author}"
+    #Environment = "${var.tag_environment}"
+    #Autostop    = "${var.tag_autostop}"
+    #Description = "${var.tag_description}"
   }
 }
 
@@ -18,11 +18,11 @@ resource "aws_default_security_group" "default" {
 
   tags {
     Name        = "${var.tag_name_prefix}${var.octet}"
-    Department  = "${var.tag_department}"
-    Author      = "${var.tag_author}"
-    Environment = "${var.tag_environment}"
-    Autostop    = "${var.tag_autostop}"
-    Description = "${var.tag_description}"
+    #Department  = "${var.tag_department}"
+    #Author      = "${var.tag_author}"
+    #Environment = "${var.tag_environment}"
+    #Autostop    = "${var.tag_autostop}"
+    #Description = "${var.tag_description}"
   }
 
   // Begin AWS Defaults
@@ -70,11 +70,11 @@ resource "aws_subnet" "downstream" {
 
   tags {
     Name        = "${var.tag_name_prefix}${var.name}-Downstream"
-    Department  = "${var.tag_department}"
-    Author      = "${var.tag_author}"
-    Environment = "${var.tag_environment}"
-    Autostop    = "${var.tag_autostop}"
-    Description = "${var.tag_description}"
+    #Department  = "${var.tag_department}"
+    #Author      = "${var.tag_author}"
+    #Environment = "${var.tag_environment}"
+    #Autostop    = "${var.tag_autostop}"
+    #Description = "${var.tag_description}"
   }
 }
 
@@ -86,11 +86,11 @@ resource "aws_subnet" "upstream" {
 
   tags {
     Name        = "${var.tag_name_prefix}${var.name}-Upstream"
-    Department  = "${var.tag_department}"
-    Author      = "${var.tag_author}"
-    Environment = "${var.tag_environment}"
-    Autostop    = "${var.tag_autostop}"
-    Description = "${var.tag_description}"
+    #Department  = "${var.tag_department}"
+    #Author      = "${var.tag_author}"
+    #Environment = "${var.tag_environment}"
+    #Autostop    = "${var.tag_autostop}"
+    #Description = "${var.tag_description}"
   }
 }
 
@@ -102,11 +102,11 @@ resource "aws_subnet" "mgmt" {
 
   tags {
     Name        = "${var.tag_name_prefix}${var.name}-Mgmt"
-    Department  = "${var.tag_department}"
-    Author      = "${var.tag_author}"
-    Environment = "${var.tag_environment}"
-    Autostop    = "${var.tag_autostop}"
-    Description = "${var.tag_description}"
+    #Department  = "${var.tag_department}"
+    #Author      = "${var.tag_author}"
+    #Environment = "${var.tag_environment}"
+    #Autostop    = "${var.tag_autostop}"
+    #Description = "${var.tag_description}"
   }
 }
 
@@ -115,11 +115,11 @@ resource "aws_route_table" "downstream" {
 
   tags {
     Name        = "${var.tag_name_prefix}${var.name}-downstream"
-    Department  = "${var.tag_department}"
-    Author      = "${var.tag_author}"
-    Environment = "${var.tag_environment}"
-    Autostop    = "${var.tag_autostop}"
-    Description = "${var.tag_description}"
+    #Department  = "${var.tag_department}"
+    #Author      = "${var.tag_author}"
+    #Environment = "${var.tag_environment}"
+    #Autostop    = "${var.tag_autostop}"
+    #Description = "${var.tag_description}"
   }
 }
 
@@ -136,11 +136,11 @@ resource "aws_default_route_table" "default" {
   #}
   tags {
     Name        = "${var.tag_name_prefix}VPC-${var.octet}-default"
-    Department  = "${var.tag_department}"
-    Author      = "${var.tag_author}"
-    Environment = "${var.tag_environment}"
-    Autostop    = "${var.tag_autostop}"
-    Description = "${var.tag_description}"
+    #Department  = "${var.tag_department}"
+    #Author      = "${var.tag_author}"
+    #Environment = "${var.tag_environment}"
+    #Autostop    = "${var.tag_autostop}"
+    #Description = "${var.tag_description}"
   }
 }
 
@@ -171,11 +171,11 @@ resource "aws_network_interface" "vr-eth1" {
 
   tags {
     Name        = "${var.tag_name_prefix}${var.octet}-vr-eth1"
-    Department  = "${var.tag_department}"
-    Author      = "${var.tag_author}"
-    Environment = "${var.tag_environment}"
-    Autostop    = "${var.tag_autostop}"
-    Description = "${var.tag_description}"
+    #Department  = "${var.tag_department}"
+    #Author      = "${var.tag_author}"
+    #Environment = "${var.tag_environment}"
+    #Autostop    = "${var.tag_autostop}"
+    #Description = "${var.tag_description}"
   }
 }
 
@@ -188,11 +188,11 @@ resource "aws_network_interface" "vr-eth2" {
 
   tags {
     Name        = "${var.tag_name_prefix}${var.octet}-vr-eth2"
-    Department  = "${var.tag_department}"
-    Author      = "${var.tag_author}"
-    Environment = "${var.tag_environment}"
-    Autostop    = "${var.tag_autostop}"
-    Description = "${var.tag_description}"
+    #Department  = "${var.tag_department}"
+    #Author      = "${var.tag_author}"
+    #Environment = "${var.tag_environment}"
+    #Autostop    = "${var.tag_autostop}"
+    #Description = "${var.tag_description}"
   }
 }
 
@@ -205,11 +205,11 @@ resource "aws_network_interface" "vr-eth3" {
 
   tags {
     Name        = "${var.tag_name_prefix}${var.octet}-vr-eth3"
-    Department  = "${var.tag_department}"
-    Author      = "${var.tag_author}"
-    Environment = "${var.tag_environment}"
-    Autostop    = "${var.tag_autostop}"
-    Description = "${var.tag_description}"
+    #Department  = "${var.tag_department}"
+    #Author      = "${var.tag_author}"
+    #Environment = "${var.tag_environment}"
+    #Autostop    = "${var.tag_autostop}"
+    #Description = "${var.tag_description}"
   }
 }
 
@@ -245,11 +245,11 @@ resource "aws_instance" "vRouter" {
   key_name = "${var.keypair_name}"
   tags {
     Name        = "${var.tag_name_prefix}${var.octet}-vRouter"
-    Department  = "${var.tag_department}"
-    Author      = "${var.tag_author}"
-    Environment = "${var.tag_environment}"
-    Autostop    = "${var.tag_autostop}"
-    Description = "${var.tag_description}"
+    #Department  = "${var.tag_department}"
+    #Author      = "${var.tag_author}"
+    #Environment = "${var.tag_environment}"
+    #Autostop    = "${var.tag_autostop}"
+    #Description = "${var.tag_description}"
   }
 }
 
@@ -261,11 +261,11 @@ resource "aws_network_interface" "jump-eth0" {
 
   tags {
     Name        = "${var.tag_name_prefix}${var.octet}-jump_host-eth0"
-    Department  = "${var.tag_department}"
-    Author      = "${var.tag_author}"
-    Environment = "${var.tag_environment}"
-    Autostop    = "${var.tag_autostop}"
-    Description = "${var.tag_description}"
+    #Department  = "${var.tag_department}"
+    #Author      = "${var.tag_author}"
+    #Environment = "${var.tag_environment}"
+    #Autostop    = "${var.tag_autostop}"
+    #Description = "${var.tag_description}"
   }
 }
 
@@ -284,11 +284,11 @@ resource "aws_instance" "jump" {
 
   tags {
     Name        = "${var.tag_name_prefix}${var.octet}-jump_host"
-    Department  = "${var.tag_department}"
-    Author      = "${var.tag_author}"
-    Environment = "${var.tag_environment}"
-    Autostop    = "${var.tag_autostop}"
-    Description = "${var.tag_description}"
+    #Department  = "${var.tag_department}"
+    #Author      = "${var.tag_author}"
+    #Environment = "${var.tag_environment}"
+    #Autostop    = "${var.tag_autostop}"
+    #Description = "${var.tag_description}"
   }
 
   #provisioner "remote-exec" {
@@ -323,11 +323,11 @@ resource "aws_vpc_peering_connection" "vpc_to_jump" {
 
   tags {
     Name        = "${var.tag_name_prefix}jump<>${var.octet}"
-    Department  = "${var.tag_department}"
-    Author      = "${var.tag_author}"
-    Environment = "${var.tag_environment}"
-    Autostop    = "${var.tag_autostop}"
-    Description = "${var.tag_description}"
+    #Department  = "${var.tag_department}"
+    #Author      = "${var.tag_author}"
+    #Environment = "${var.tag_environment}"
+    #Autostop    = "${var.tag_autostop}"
+    #Description = "${var.tag_description}"
   }
 }
 

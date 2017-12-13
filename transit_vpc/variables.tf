@@ -22,7 +22,7 @@ variable "tag_name_prefix" {
 }
 
 variable "tag_department" {
-  default = "SE"
+  default = ""
 }
 
 variable "tag_author" {}
