@@ -9,5 +9,5 @@
       lineinfile:
         dest: /etc/hosts
         regexp: '^127\.0\.0\.1[ \t]+localhost'
-        line: '127.0.0.1 localhost webserver'
+        line: '127.0.0.1 localhost jump_host'
         state: present
