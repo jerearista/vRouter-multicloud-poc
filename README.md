@@ -52,6 +52,6 @@ git add <...>
 
 ## Archive files
 
-````
+```
 export REPO_DIR=`pwd`; (cd .. && tar czvf vRouter-terraform-4-vpc-topo.tgz --exclude='archive' --exclude='terraform.*' --exclude='.terraform*' --exclude='.git' $REPO_DIR)
 ```
