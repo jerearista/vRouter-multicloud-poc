@@ -221,7 +221,7 @@ data "template_file" "user_data" {
   template = "${file("${path.root}/vRouter-${var.octet}-startup-config.tpl")}"
 
   vars {
-    octet = "${var.octet}"
+    octet   = "${var.octet}"
     eth1_ip = "${aws_network_interface.vr-eth1.private_ip}"
     eth2_ip = "${aws_network_interface.vr-eth2.private_ip}"
     eth3_ip = "${aws_network_interface.vr-eth3.private_ip}"
@@ -235,8 +235,9 @@ data "template_file" "user_data" {
 resource "aws_instance" "vRouter" {
   ami           = "${var.vrouter_ami}"
   instance_type = "c4.xlarge"
+
   #user_data     = "${file("${path.root}/vRouter-${var.octet}-startup-config.txt")}"
-  user_data     = "${data.template_file.user_data.rendered}"
+  user_data = "${data.template_file.user_data.rendered}"
 
   #instance_type = "m4.large"
 
