@@ -217,18 +217,30 @@ resource "aws_network_interface" "vr-eth3" {
   }
 }
 
+data "template_file" "user_data" {
+  template = "${file("${path.root}/vRouter-${var.octet}-startup-config.tpl")}"
+
+  vars {
+    octet = "${var.octet}"
+    eth1_ip = "${aws_network_interface.vr-eth1.private_ip}"
+    eth2_ip = "${aws_network_interface.vr-eth2.private_ip}"
+    eth3_ip = "${aws_network_interface.vr-eth3.private_ip}"
+  }
+}
+
 /*
  * Image_type affects the maximum # of network interfaces
  * http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html#AvailableIpPerENI
  */
 resource "aws_instance" "vRouter" {
-  ami = "${var.vrouter_ami}"
+  ami           = "${var.vrouter_ami}"
+  instance_type = "c4.xlarge"
+  #user_data     = "${file("${path.root}/vRouter-${var.octet}-startup-config.txt")}"
+  user_data     = "${data.template_file.user_data.rendered}"
 
   #instance_type = "m4.large"
 
-  instance_type                        = "c4.xlarge"
   instance_initiated_shutdown_behavior = "stop"
-  user_data                            = "${file("${path.root}/vRouter-${var.octet}-startup-config.txt")}"
 
   # disable_api_termination - (Optional) If true, enables EC2 Instance Termination Protection
 
@@ -337,6 +349,17 @@ resource "aws_network_interface" "app-eth0" {
 resource "aws_instance" "jump" {
   ami           = "${var.jump_ami}"
   instance_type = "${var.aws_instance_type}"
+
+  #user_data     = "${file("${path.root}/vRouter-${var.octet}-startup-config.txt")}"
+  user_data = <<-EOF
+    #cloud-config
+    hostname: jump-${var.octet}
+
+    manage_etc_hosts: true
+
+    runcmd:
+    - touch /var/tmp/HelloInThere.txt
+    EOF
 
   instance_initiated_shutdown_behavior = "stop"
 
