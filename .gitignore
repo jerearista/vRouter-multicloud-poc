@@ -2,3 +2,6 @@
 archive
 terraform.tfstate
 terraform.tfstate.backup
+
+# Ignore user's settings file
+my.tfvars
