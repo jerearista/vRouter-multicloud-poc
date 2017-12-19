@@ -19,12 +19,12 @@ provider "template" {
  */
 data "aws_caller_identity" "current" {}
 
-resource "aws_key_pair" "vrouter_key" {
-  key_name   = "${var.keypair_name}"
-  public_key = "${var.public_key}"
-
-  #key_path = "${var.key_path}"
-}
+#resource "aws_key_pair" "vrouter_key" {
+#  key_name   = "${var.keypair_name}"
+#  public_key = "${var.public_key}"
+#
+#  #key_path = "${var.key_path}"
+#}
 
 module "jump" {
   source = "./jump"
