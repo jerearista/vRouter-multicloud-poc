@@ -304,6 +304,7 @@ resource "aws_instance" "jump" {
 /*
  * Setup VPC peering to the bastion VPC
  */
+/*
 resource "aws_vpc_peering_connection" "vpc_to_jump" {
   # Main VPC ID.
   #vpc_id = "${aws_vpc.Jump_VPC.id}"
@@ -355,3 +356,4 @@ resource "aws_route" "thisvpc2jump" {
   # ID of VPC peering connection.
   vpc_peering_connection_id = "${aws_vpc_peering_connection.vpc_to_jump.id}"
 }
+*/
